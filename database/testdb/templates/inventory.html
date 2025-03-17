@@ -1,0 +1,73 @@
+{% extends "master.html" %}
+
+{% block content %}
+<html>
+<body>
+
+<div class="container mt-3">
+    <h2>Inventory</h2>
+
+    <form method="GET" action="">
+        <div class="mb-3">
+            <label for="serial_num" class="form-label">Search by serial number</label>
+            <input type="text" class="form-control" id="serial_num" name="serial_num" placeholder="Enter serial number" value="{{ serial_num }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <table class="table mt-3">
+        <thead class="table-dark">
+        <tr>
+            <th>Serial number</th>
+            <th>Part number</th>
+            <th>Item type</th>
+            <th>User ID</th>
+            <th>Location</th>
+            <th>Date added</th>
+            <th>Last modified</th>
+            <th>Description</th>
+            <th>Madlibs</th>
+            <th>Image</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if serial_num %}
+            {% for item in items %}
+                {% if item.serial_num == serial_num %}
+                    <tr>
+                        <td>{{ item.serial_num }}</td>
+                        <td>{{ item.part_num }}</td>
+                        <td>{{ item.item_type }}</td>
+                        <td>{{ item.user_ID }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>{{ item.date_added }}</td>
+                        <td>{{ item.last_modified }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.madlibs }}</td>
+                        <td><img src="{{ item.image_path }}" class="img-fluid" alt="Image"></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.serial_num }}</td>
+                    <td>{{ item.part_num }}</td>
+                    <td>{{ item.item_type }}</td>
+                    <td>{{ item.user_ID }}</td>
+                    <td>{{ item.location }}</td>
+                    <td>{{ item.date_added }}</td>
+                    <td>{{ item.last_modified }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.madlibs }}</td>
+                    <td><img src="{{ item.image_path }}" class="img-fluid" alt="Image"></td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
+{% endblock %}
