@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV 'c:\Users\ethan\Documents\Capstone\.venv'
+set -gx VIRTUAL_ENV 'c:\Users\ethan\Documents\Capstone\spiers_capstone_sp2025_team3\database\.venv'
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"Scripts $PATH
