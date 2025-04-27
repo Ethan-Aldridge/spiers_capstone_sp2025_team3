@@ -13,9 +13,9 @@
                 <label for="location" class="form-label">Select Location</label>
                 <select class="form-select" id="location" name="location" onchange="this.form.submit()">
                     <option value="">All Locations</option>
-                    <option value="Warehouse A" {% if location == "Warehouse A" %}selected{% endif %}>Warehouse A</option>
-                    <option value="Warehouse B" {% if location == "Warehouse B" %}selected{% endif %}>Warehouse B</option>
-                    <option value="Warehouse C" {% if location == "Warehouse C" %}selected{% endif %}>Warehouse C</option>
+                    {% for local in accessible_locations %}
+                        <option value="{{ Warehouse }}" {% if location == local %}selected{% endif %}>{{ Warehouse }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="mb-3">
@@ -42,18 +42,18 @@
             </thead>
             <tbody>
             {% for item in items %}
-            <tr>
-                <td>{{ item.serial_num }}</td>
-                <td>{{ item.part_num }}</td>
-                <td>{{ item.item_type }}</td>
-                <td>{{ item.user_ID }}</td>
-                <td>{{ item.location }}</td>
-                <td>{{ item.date_added }}</td>
-                <td>{{ item.last_modified }}</td>
-                <td>{{ item.description }}</td>
-                <td>{{ item.madlibs }}</td>
-                <td><img src="{{ item.image_path }}" class="img-fluid" alt="Image"></td>
-            </tr>
+                <tr>
+                    <td>{{ item.serial_num }}</td>
+                    <td>{{ item.part_num }}</td>
+                    <td>{{ item.item_type }}</td>
+                    <td>{{ item.user_ID }}</td>
+                    <td>{{ item.location }}</td>
+                    <td>{{ item.date_added }}</td>
+                    <td>{{ item.last_modified }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.madlibs }}</td>
+                    <td><img src="{{ item.image_path }}" class="img-fluid" alt="Image"></td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>
