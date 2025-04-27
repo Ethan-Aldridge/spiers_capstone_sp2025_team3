@@ -7,55 +7,60 @@
 <div class="container mt-3">
     <h2>Inventory</h2>
 
-    <form method="GET" action="">
-        <div class="mb-3">
-            <label for="location" class="form-label">Select Location</label>
-            <select class="form-select" id="location" name="location" onchange="this.form.submit()">
-                <option value="">All Locations</option>
-                <option value="Warehouse A" {% if location == "Warehouse A" %}selected{% endif %}>Warehouse A</option>
-                <option value="Warehouse B" {% if location == "Warehouse B" %}selected{% endif %}>Warehouse B</option>
-                <option value="Warehouse C" {% if location == "Warehouse C" %}selected{% endif %}>Warehouse C</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="serial_num" class="form-label">Search by serial number</label>
-            <input type="number" class="form-control" id="serial_num" name="serial_num" placeholder="Enter serial number" value="{{ serial_num }}">
-        </div>
-        <button type="submit" class="btn btn-primary">Search</button>
-    </form>
+    {% if request.user.is_authenticated %}
+        <form method="GET" action="">
+            <div class="mb-3">
+                <label for="location" class="form-label">Select Location</label>
+                <select class="form-select" id="location" name="location" onchange="this.form.submit()">
+                    <option value="">All Locations</option>
+                    <option value="Warehouse A" {% if location == "Warehouse A" %}selected{% endif %}>Warehouse A</option>
+                    <option value="Warehouse B" {% if location == "Warehouse B" %}selected{% endif %}>Warehouse B</option>
+                    <option value="Warehouse C" {% if location == "Warehouse C" %}selected{% endif %}>Warehouse C</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="serial_num" class="form-label">Search by serial number</label>
+                <input type="number" class="form-control" id="serial_num" name="serial_num" placeholder="Enter serial number" value="{{ serial_num }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
 
-    <table class="table mt-3">
-        <thead class="table-dark">
-        <tr>
-            <th class="text-nowrap">Serial #</th>
-            <th class="text-nowrap">Part #</th>
-            <th>Item type</th>
-            <th>User ID</th>
-            <th>Location</th>
-            <th>Date added</th>
-            <th>Last modified</th>
-            <th>Description</th>
-            <th>Madlibs</th>
-            <th>Image</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in items %}
-        <tr>
-            <td>{{ item.serial_num }}</td>
-            <td>{{ item.part_num }}</td>
-            <td>{{ item.item_type }}</td>
-            <td>{{ item.user_ID }}</td>
-            <td>{{ item.location }}</td>
-            <td>{{ item.date_added }}</td>
-            <td>{{ item.last_modified }}</td>
-            <td>{{ item.description }}</td>
-            <td>{{ item.madlibs }}</td>
-            <td><img src="{{ item.image_path }}" class="img-fluid" alt="Image"></td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <table class="table mt-3">
+            <thead class="table-dark">
+            <tr>
+                <th class="text-nowrap">Serial #</th>
+                <th class="text-nowrap">Part #</th>
+                <th>Item type</th>
+                <th>User ID</th>
+                <th>Location</th>
+                <th>Date added</th>
+                <th>Last modified</th>
+                <th>Description</th>
+                <th>Madlibs</th>
+                <th>Image</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.serial_num }}</td>
+                <td>{{ item.part_num }}</td>
+                <td>{{ item.item_type }}</td>
+                <td>{{ item.user_ID }}</td>
+                <td>{{ item.location }}</td>
+                <td>{{ item.date_added }}</td>
+                <td>{{ item.last_modified }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.madlibs }}</td>
+                <td><img src="{{ item.image_path }}" class="img-fluid" alt="Image"></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-danger">You must be logged in to view the inventory.</p>
+        <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+    {% endif %}
 </div>
 
 </body>
