@@ -14,7 +14,7 @@
                 <select class="form-select" id="location" name="location" onchange="this.form.submit()">
                     <option value="">All Locations</option>
                     {% for local in accessible_locations %}
-                        <option value="{{ Warehouse }}" {% if location == local %}selected{% endif %}>{{ Warehouse }}</option>
+                        <option value="{{ local }}" {% if location == local %}selected{% endif %}>{{ local }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -28,16 +28,16 @@
         <table class="table mt-3">
             <thead class="table-dark">
             <tr>
-                <th class="text-nowrap">Serial #</th>
-                <th class="text-nowrap">Part #</th>
-                <th>Item type</th>
-                <th>User ID</th>
-                <th>Location</th>
-                <th>Date added</th>
-                <th>Last modified</th>
-                <th>Description</th>
-                <th>Madlibs</th>
-                <th>Image</th>
+                <th class="text-nowrap" style="width: 5%;">Serial #</th>
+                <th class="text-nowrap" style="width: 5%;">Part #</th>
+                <th style="width: 10%;">Item type</th>
+                <th class="text-nowrap" style="width: 5%;">User ID</th>
+                <th style="width: 10%;">Location</th>
+                <th style="width: 15%;">Date added</th>
+                <th style="width: 15%;">Last modified</th>
+                <th style="width: 15%;">Description</th>
+                <th style="width: 15%;">Madlibs</th>
+                <th style="width: 15%;">Image</th>
             </tr>
             </thead>
             <tbody>
@@ -52,13 +52,22 @@
                     <td>{{ item.last_modified }}</td>
                     <td>{{ item.description }}</td>
                     <td>{{ item.madlibs }}</td>
-                    <td><img src="{{ item.image_path }}" class="img-fluid" alt="Image"></td>
+                    {% comment %} <td>{{ item.image }}</td> {% endcomment %}
+                    <td>
+                        {% if item.image %}
+                            <img src="{{ item.image.url }}" class="img-fluid" alt="Image">
+                        {% else %}
+                            <p>No image available</p>
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     {% else %}
-        <p class="text-danger">You must be logged in to view the inventory.</p>
+        <div class="col-md-8 text-center">
+            <p class="text-danger">You must be logged in to view the inventory.</p>
+        </div>
         <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
     {% endif %}
 </div>
